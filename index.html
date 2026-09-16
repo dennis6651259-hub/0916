@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>陳子揚 Alex Chen | 資深全端工程師 & UI/UX 設計師</title>
+  <meta name="description" content="陳子揚 (Alex Chen) 的個人品牌網站。精通全端系統架構與現代化 UI/UX 設計，提供高質感數位產品開發與體驗規劃。">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Ambient Light Blue Orbs -->
+  <div class="bg-ambient-orb orb-1"></div>
+  <div class="bg-ambient-orb orb-2"></div>
+  <div class="bg-ambient-orb orb-3"></div>
+
+  <!-- Header & Navigation -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" id="brand-logo">
+        <div class="logo-badge">AC</div>
+        <span>Alex Chen<span style="color: var(--primary-500);">.</span></span>
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero" class="nav-link active">首頁</a></li>
+        <li><a href="#about" class="nav-link">關於我</a></li>
+        <li><a href="#resume" class="nav-link">個人履歷</a></li>
+        <li><a href="#skills" class="nav-link">專業技能</a></li>
+        <li><a href="#portfolio" class="nav-link">作品集</a></li>
+        <li><a href="#contact" class="nav-link">聯絡方式</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-primary btn-sm" id="nav-cta-btn">
+          <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+          <span>預約洽談</span>
+        </a>
+        <div class="mobile-toggle" id="mobile-toggle" aria-label="切換選單">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="section hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Text Content -->
+        <div class="hero-content">
+          <div class="hero-status-pill">
+            <span class="status-indicator"></span>
+            <span>開放自由接案與全職機會</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="greeting">嗨，我是 陳子揚 (Alex) 👋</span>
+            專注打造<span class="text-gradient">極致體驗</span>的<br>全端開發者 & 設計師
+          </h1>
+
+          <p class="hero-subtitle">
+            具備 5+ 年軟體工程經驗，熱衷將複雜業務邏輯轉化為直覺、優雅且高效的數位產品。融會工程結構思維與美學設計，為企業創造可衡量的商業價值。
+          </p>
+
+          <div class="hero-actions">
+            <a href="#portfolio" class="btn btn-primary" id="hero-view-works">
+              <span>探索精選作品</span>
+              <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </a>
+            <a href="#resume" class="btn btn-secondary" id="hero-download-cv">
+              <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+              <span>查看完整簡歷</span>
+            </a>
+          </div>
+
+          <div class="hero-socials">
+            <span class="social-label">社群連結：</span>
+            <div class="social-icons-group">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub">
+                <i data-lucide="github" style="width: 18px; height: 18px;"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
+                <i data-lucide="linkedin" style="width: 18px; height: 18px;"></i>
+              </a>
+              <a href="mailto:alex.chen.dev@example.com" class="social-icon-btn" title="Email">
+                <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
+              </a>
+              <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Behance">
+                <i data-lucide="figma" style="width: 18px; height: 18px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual / Personal Photo -->
+        <div class="hero-visual">
+          <div class="portrait-wrapper">
+            <div class="portrait-backdrop-glow"></div>
+            <div class="portrait-card">
+              <img src="assets/images/profile.jpg" alt="陳子揚 Alex Chen 個人形象照" class="portrait-img">
+            </div>
+
+            <!-- Floating Badge: Experience -->
+            <div class="floating-badge badge-experience">
+              <div class="badge-icon">
+                <i data-lucide="code-2" style="width: 22px; height: 22px;"></i>
+              </div>
+              <div>
+                <div class="badge-text-val">5+ 年</div>
+                <div class="badge-text-lbl">全端與產品研發</div>
+              </div>
+            </div>
+
+            <!-- Floating Badge: Projects -->
+            <div class="floating-badge badge-projects">
+              <div class="badge-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                <i data-lucide="check-circle-2" style="width: 22px; height: 22px;"></i>
+              </div>
+              <div>
+                <div class="badge-text-val">28+ 專案</div>
+                <div class="badge-text-lbl">100% 成功交付率</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About & Stats Section -->
+  <section class="section about-section" id="about">
+    <div class="container">
+      <!-- Fast Stats Grid -->
+      <div class="stats-grid">
+        <div class="glass-card stat-item">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">年工程實戰經驗</div>
+        </div>
+        <div class="glass-card stat-item">
+          <div class="stat-number">28+</div>
+          <div class="stat-label">跨國企業專案交付</div>
+        </div>
+        <div class="glass-card stat-item">
+          <div class="stat-number">99.8%</div>
+          <div class="stat-label">雲端系統穩定運行率</div>
+        </div>
+        <div class="glass-card stat-item">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">國際與專業技術認證</div>
+        </div>
+      </div>
+
+      <!-- Narrative & Principles -->
+      <div class="about-narrative">
+        <div>
+          <h3 class="narrative-title">
+            <i data-lucide="compass"></i>
+            設計與工程的跨界融合
+          </h3>
+          <p class="narrative-p">
+            我深信卓越的軟體不僅需要堅實穩定的底層架構，更要有打動人心的互動細節。作為一名橫跨全端工程與 UI/UX 的開發者，我能在設計初期就預判技術可行性，並在代碼實踐中嚴格遵循美學規範。
+          </p>
+          <p class="narrative-p">
+            曾帶領多個敏捷團隊完成從 0 到 1 的產品孵化，涵蓋高頻金融儀表板、分散式雲端後台與多模態 AI 工作流工具。
+          </p>
+        </div>
+
+        <div>
+          <h3 class="narrative-title">
+            <i data-lucide="sparkles"></i>
+            核心工作哲學
+          </h3>
+          <ul class="highlights-list">
+            <li class="highlight-item">
+              <div class="highlight-icon"><i data-lucide="zap" style="width: 14px; height: 14px;"></i></div>
+              <div><strong>極致效能導向：</strong>將頁面加載優化至毫秒級，兼顧流暢幀率與無障礙標準 (a11y)。</div>
+            </li>
+            <li class="highlight-item">
+              <div class="highlight-icon"><i data-lucide="shield-check" style="width: 14px; height: 14px;"></i></div>
+              <div><strong>嚴謹架構設計：</strong>採用微服務模組化與乾淨代碼（Clean Architecture），提升維護彈性。</div>
+            </li>
+            <li class="highlight-item">
+              <div class="highlight-icon"><i data-lucide="users" style="width: 14px; height: 14px;"></i></div>
+              <div><strong>以用戶為核心：</strong>深入訪談目標客群，利用數據指標（A/B Testing）持續迭代產品功能。</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume & Experience Section (個人履歷) -->
+  <section class="section resume-section" id="resume">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <span class="dot"></span>
+          <span>CURRICULUM VITAE</span>
+        </div>
+        <h2 class="section-title">專業履歷與<span class="text-gradient">經歷累積</span></h2>
+        <p class="section-desc">從產品架構規劃到核心代碼落地，記錄我近年來在不同規模團隊與挑戰中的成長軌跡。</p>
+      </div>
+
+      <div class="resume-layout">
+        <!-- Work Experience Timeline -->
+        <div>
+          <h3 class="resume-column-title">
+            <div class="resume-col-icon"><i data-lucide="briefcase"></i></div>
+            工作實戰經歷
+          </h3>
+
+          <div class="timeline">
+            <!-- Job 1 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="glass-card timeline-card">
+                <div class="timeline-header">
+                  <div class="timeline-role">資深前端架構師 (Lead Architect)</div>
+                  <div class="timeline-period">2023 - 至今</div>
+                </div>
+                <div class="timeline-org">
+                  <i data-lucide="building" style="width: 15px; height: 15px;"></i>
+                  極光數位創新實驗室 (Aurora Labs)
+                </div>
+                <p class="timeline-desc">
+                  主導企業級微前端（Micro-Frontends）與核心 Design System 重構，將全站資源首屏載入時間縮短 42%，服務超過 60 萬活躍企業用戶。制定前端自動化測試流程，程式碼測試覆蓋率提升至 85%。
+                </p>
+                <div class="timeline-tags">
+                  <span class="tech-tag">React 18</span>
+                  <span class="tech-tag">Next.js</span>
+                  <span class="tech-tag">TypeScript</span>
+                  <span class="tech-tag">Webpack / Vite</span>
+                  <span class="tech-tag">CI/CD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="glass-card timeline-card">
+                <div class="timeline-header">
+                  <div class="timeline-role">全端軟體工程師 (Full-Stack Dev)</div>
+                  <div class="timeline-period">2021 - 2023</div>
+                </div>
+                <div class="timeline-org">
+                  <i data-lucide="building" style="width: 15px; height: 15px;"></i>
+                  雲端同步科技 (CloudSync Tech)
+                </div>
+                <p class="timeline-desc">
+                  負責高併發雲端數據串流平台的 RESTful / GraphQL API 開發，設計 PostgreSQL 分庫分表策略並落實 Docker / AWS ECS 容器化架構，使系統在雙 11 大促期間平穩抗住每秒 15,000+ 請求。
+                </p>
+                <div class="timeline-tags">
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                  <span class="tech-tag">Docker</span>
+                  <span class="tech-tag">AWS ECS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="glass-card timeline-card">
+                <div class="timeline-header">
+                  <div class="timeline-role">UI/UX 設計兼前端開發</div>
+                  <div class="timeline-period">2019 - 2021</div>
+                </div>
+                <div class="timeline-org">
+                  <i data-lucide="building" style="width: 15px; height: 15px;"></i>
+                  創思互動媒體 (Inspire Creative)
+                </div>
+                <p class="timeline-desc">
+                  統籌品牌官網與電商入口之使用者體驗調研、Wireframe 與原型製作，親自負責互動轉場動畫編寫，專案榮獲 2020 台灣數位互動設計年度入選獎。
+                </p>
+                <div class="timeline-tags">
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">Vue.js</span>
+                  <span class="tech-tag">SCSS</span>
+                  <span class="tech-tag">GSAP 互動動效</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education & Certifications Timeline -->
+        <div>
+          <h3 class="resume-column-title">
+            <div class="resume-col-icon"><i data-lucide="graduation-cap"></i></div>
+            學歷背景與榮譽認證
+          </h3>
+
+          <div class="timeline">
+            <!-- Edu 1 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="glass-card timeline-card">
+                <div class="timeline-header">
+                  <div class="timeline-role">資訊工程研究所 碩士</div>
+                  <div class="timeline-period">2017 - 2019</div>
+                </div>
+                <div class="timeline-org">
+                  <i data-lucide="school" style="width: 15px; height: 15px;"></i>
+                  國立臺灣科技大學 (NTUST)
+                </div>
+                <p class="timeline-desc">
+                  專研分散式架構與人機互動界面（HCI）。於國際計算機會議發表首篇邊緣運算視覺化研究論文，並獲得優秀畢業論文肯定。
+                </p>
+              </div>
+            </div>
+
+            <!-- Edu 2 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="glass-card timeline-card">
+                <div class="timeline-header">
+                  <div class="timeline-role">資訊工程學系 學士</div>
+                  <div class="timeline-period">2013 - 2017</div>
+                </div>
+                <div class="timeline-org">
+                  <i data-lucide="school" style="width: 15px; height: 15px;"></i>
+                  國立成功大學 (NCKU)
+                </div>
+                <p class="timeline-desc">
+                  奠定演算法、資料結構與計算機網路核心基礎，大專生畢業專案獲評第一名，擔任校內程式設計研習社技術長。
+                </p>
+              </div>
+            </div>
+
+            <!-- Certifications Card -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="glass-card timeline-card">
+                <div class="timeline-header">
+                  <div class="timeline-role">專業證照與榮譽</div>
+                  <div class="timeline-period">持續更新</div>
+                </div>
+                <ul class="highlights-list" style="margin-top: 10px;">
+                  <li class="highlight-item">
+                    <div class="highlight-icon"><i data-lucide="award" style="width: 14px; height: 14px;"></i></div>
+                    <div><strong>AWS Certified Solutions Architect</strong> (Associate)</div>
+                  </li>
+                  <li class="highlight-item">
+                    <div class="highlight-icon"><i data-lucide="award" style="width: 14px; height: 14px;"></i></div>
+                    <div><strong>Google Cloud Certified</strong> Professional Cloud Developer</div>
+                  </li>
+                  <li class="highlight-item">
+                    <div class="highlight-icon"><i data-lucide="award" style="width: 14px; height: 14px;"></i></div>
+                    <div><strong>NN/g UX Master Certification</strong> (User Experience Research)</div>
+                  </li>
+                  <li class="highlight-item">
+                    <div class="highlight-icon"><i data-lucide="award" style="width: 14px; height: 14px;"></i></div>
+                    <div><strong>金點設計標章 (Golden Pin Design)</strong> 數位作品入圍</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section (專業技能) -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <span class="dot"></span>
+          <span>TECH & CAPABILITIES</span>
+        </div>
+        <h2 class="section-title">全方位<span class="text-gradient">技術棧與特長</span></h2>
+        <p class="section-desc">結合現代前端工程體系、後端雲端整合與產品設計體驗，打造全鏈路數位產品。</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Frontend -->
+        <div class="glass-card skill-card">
+          <div class="skill-card-icon">
+            <i data-lucide="layout"></i>
+          </div>
+          <h3 class="skill-card-title">現代前端工程</h3>
+          <p class="skill-card-desc">熟練建構大型單頁應用（SPA/SSR），注重代碼整潔、元件模組化與極致載入效能。</p>
+          <ul class="skill-list">
+            <li>
+              <div class="skill-item-header"><span>React / Next.js</span><span>95%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 95%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>TypeScript / ESNext</span><span>92%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 92%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>Vue 3 / Pinia</span><span>88%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 88%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>CSS3 / Animations / Canvas</span><span>90%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 90%;"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Backend & Cloud -->
+        <div class="glass-card skill-card">
+          <div class="skill-card-icon">
+            <i data-lucide="server"></i>
+          </div>
+          <h3 class="skill-card-title">後端與雲架構</h3>
+          <p class="skill-card-desc">具備 RESTful/GraphQL API 開發能力，擅長雲端容器化部署與高可用性資料庫規劃。</p>
+          <ul class="skill-list">
+            <li>
+              <div class="skill-item-header"><span>Node.js / Express / NestJS</span><span>88%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 88%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>PostgreSQL / Redis / ORM</span><span>85%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 85%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>Docker / K8s / CI/CD Pipeline</span><span>82%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 82%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>AWS / Cloudflare / DevOps</span><span>80%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 80%;"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Design & Experience -->
+        <div class="glass-card skill-card">
+          <div class="skill-card-icon">
+            <i data-lucide="pen-tool"></i>
+          </div>
+          <h3 class="skill-card-title">體驗與視覺設計</h3>
+          <p class="skill-card-desc">以使用者需求為中心，建構可拓展的設計系統（Design Tokens），實現高保真互動原型。</p>
+          <ul class="skill-list">
+            <li>
+              <div class="skill-item-header"><span>Figma / UI Components</span><span>92%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 92%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>Design System 架構</span><span>90%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 90%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>使用者研究 & Wireframing</span><span>85%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 85%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-item-header"><span>響應式跨裝置適配 (RWD)</span><span>95%</span></div>
+              <div class="skill-bar-outer"><div class="skill-bar-inner" style="width: 95%;"></div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio / Works Section (個人作品) -->
+  <section class="section" id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <span class="dot"></span>
+          <span>PORTFOLIO & WORKS</span>
+        </div>
+        <h2 class="section-title">精選專案與<span class="text-gradient">個人作品展示</span></h2>
+        <p class="section-desc">點擊作品卡片可查看技術實踐細節、架構設計思路與完整專案亮點。</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="portfolio-tabs">
+        <button class="tab-btn active" data-filter="all">全部作品 (4)</button>
+        <button class="tab-btn" data-filter="web">Web 應用 (2)</button>
+        <button class="tab-btn" data-filter="mobile">行動介面 (1)</button>
+        <button class="tab-btn" data-filter="design">介面與體驗設計 (1)</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid" id="projects-grid">
+        <!-- Project 1 -->
+        <div class="glass-card project-card" data-category="web" data-id="project-1">
+          <div class="project-img-wrapper">
+            <img src="assets/images/project-1.jpg" alt="OmniCloud 企業級數據監控儀表板" class="project-img">
+            <div class="project-overlay">
+              <button class="project-action-btn view-modal-btn" data-id="project-1" title="查看詳細">
+                <i data-lucide="eye"></i>
+              </button>
+              <a href="#" class="project-action-btn" title="線上演示" onclick="event.preventDefault(); window.toast('正在連接即時測試環境...');">
+                <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-category">Web 應用系統 · SaaS 儀表板</div>
+            <h3 class="project-title">OmniCloud 企業級巨量數據即時監控儀表板</h3>
+            <p class="project-summary">
+              針對跨國微服務叢集所開發的高效能可視化儀表板，支援十萬級數據點秒級渲染與動態異常告警，大幅降低維運人員 60% 的排錯成本。
+            </p>
+            <div class="project-footer">
+              <div class="project-tech-tags">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">ECharts</span>
+                <span class="tech-tag">WebSocket</span>
+              </div>
+              <a href="javascript:void(0)" class="view-detail-link view-modal-btn" data-id="project-1">
+                <span>詳細細節</span>
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="glass-card project-card" data-category="mobile" data-id="project-2">
+          <div class="project-img-wrapper">
+            <img src="assets/images/project-2.jpg" alt="PulsePay 次世代虛擬資產金融錢包" class="project-img">
+            <div class="project-overlay">
+              <button class="project-action-btn view-modal-btn" data-id="project-2" title="查看詳細">
+                <i data-lucide="eye"></i>
+              </button>
+              <a href="#" class="project-action-btn" title="線上演示" onclick="event.preventDefault(); window.toast('行動端展示載入中...');">
+                <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-category">行動介面 · FinTech 金融</div>
+            <h3 class="project-title">PulsePay 次世代虛擬資產與智慧錢包 App</h3>
+            <p class="project-summary">
+              以最清爽流暢的使用者介面重新定義資產管理。整合生物識別驗證、即時多幣別流動性換算與鏈上交易即時推送，兼顧金融級安全性與極致操作感。
+            </p>
+            <div class="project-footer">
+              <div class="project-tech-tags">
+                <span class="tech-tag">React Native</span>
+                <span class="tech-tag">Figma</span>
+                <span class="tech-tag">Web3.js</span>
+                <span class="tech-tag">Tailwind</span>
+              </div>
+              <a href="javascript:void(0)" class="view-detail-link view-modal-btn" data-id="project-2">
+                <span>詳細細節</span>
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="glass-card project-card" data-category="web" data-id="project-3">
+          <div class="project-img-wrapper">
+            <img src="assets/images/project-3.jpg" alt="Aether AI 創意靈感生成工作台" class="project-img">
+            <div class="project-overlay">
+              <button class="project-action-btn view-modal-btn" data-id="project-3" title="查看詳細">
+                <i data-lucide="eye"></i>
+              </button>
+              <a href="#" class="project-action-btn" title="線上演示" onclick="event.preventDefault(); window.toast('AI 模型連接中...');">
+                <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-category">Web 應用系統 · AI 智能工作流</div>
+            <h3 class="project-title">Aether AI 靈感生成協同畫布工作台</h3>
+            <p class="project-summary">
+              整合多模態大型語言模型與圖像擴散演算法的節點式工作台。提供創作者無限畫布與即時靈感推薦，支援多成員同步協作與一鍵生成多版本企劃案。
+            </p>
+            <div class="project-footer">
+              <div class="project-tech-tags">
+                <span class="tech-tag">Next.js 14</span>
+                <span class="tech-tag">Python FastAPI</span>
+                <span class="tech-tag">Canvas API</span>
+                <span class="tech-tag">TailwindCSS</span>
+              </div>
+              <a href="javascript:void(0)" class="view-detail-link view-modal-btn" data-id="project-3">
+                <span>詳細細節</span>
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="glass-card project-card" data-category="design" data-id="project-4">
+          <div class="project-img-wrapper">
+            <img src="assets/images/project-4.jpg" alt="Boutique 極簡精品風電商體驗" class="project-img">
+            <div class="project-overlay">
+              <button class="project-action-btn view-modal-btn" data-id="project-4" title="查看詳細">
+                <i data-lucide="eye"></i>
+              </button>
+              <a href="#" class="project-action-btn" title="線上演示" onclick="event.preventDefault(); window.toast('進入設計原型...');">
+                <i data-lucide="external-link"></i>
+              </a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-category">介面設計 · 奢華電商體驗</div>
+            <h3 class="project-title">Boutique 極簡美學精品電商官網與互動設計</h3>
+            <p class="project-summary">
+              針對高端設計品牌量身定制的沉浸式線上旗艦店。引入微互動平滑捲動視差與自然呼吸感留白，轉化率提升 34%，榮獲國際 Web 體驗提名。
+            </p>
+            <div class="project-footer">
+              <div class="project-tech-tags">
+                <span class="tech-tag">UI/UX Research</span>
+                <span class="tech-tag">Figma</span>
+                <span class="tech-tag">Vue 3</span>
+                <span class="tech-tag">GSAP ScrollTrigger</span>
+              </div>
+              <a href="javascript:void(0)" class="view-detail-link view-modal-btn" data-id="project-4">
+                <span>詳細細節</span>
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section (聯絡我) -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <span class="dot"></span>
+          <span>GET IN TOUCH</span>
+        </div>
+        <h2 class="section-title">與我交流或<span class="text-gradient">啟動新合作</span></h2>
+        <p class="section-desc">無論是新專案顧問開發、團隊技術架構諮詢，還是單純想聊聊數位產品，隨時歡迎與我聯繫！</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Information -->
+        <div class="glass-card contact-info-card">
+          <h3 class="contact-info-title">讓我們共同實現您的下一個偉大構想</h3>
+          <p class="contact-info-desc">
+            目前開放專案接案與顧問諮詢。平日收到訊息後通常會在 24 小時內親自回信，期待與您激盪出更多創新火花。
+          </p>
+
+          <div class="contact-channels">
+            <div class="channel-item">
+              <div class="channel-icon">
+                <i data-lucide="mail"></i>
+              </div>
+              <div>
+                <div class="channel-detail-lbl">電子郵件</div>
+                <div class="channel-detail-val">alex.chen.dev@example.com</div>
+              </div>
+            </div>
+
+            <div class="channel-item">
+              <div class="channel-icon">
+                <i data-lucide="phone"></i>
+              </div>
+              <div>
+                <div class="channel-detail-lbl">聯絡電話</div>
+                <div class="channel-detail-val">+886 912-345-678</div>
+              </div>
+            </div>
+
+            <div class="channel-item">
+              <div class="channel-icon">
+                <i data-lucide="map-pin"></i>
+              </div>
+              <div>
+                <div class="channel-detail-lbl">常駐工作地</div>
+                <div class="channel-detail-val">台北市，台灣 (可接受遠端/混合協作)</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 16px; background: var(--primary-50); border-radius: var(--radius-md); border: 1px dashed var(--primary-300);">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--primary-700); margin-bottom: 4px; font-size: 0.9rem;">
+              <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+              <span>敏捷回應保證</span>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+              每週一至週五 09:00 - 18:30 (GMT+8) 隨時在線，緊急需求亦可透過社群帳號直接私訊。
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="glass-card contact-form-card">
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="user-name" class="form-label">您的姓名 / 稱謂 *</label>
+              <input type="text" id="user-name" class="form-input" placeholder="例如：王小明 / John Doe" required>
+            </div>
+
+            <div class="form-group">
+              <label for="user-email" class="form-label">電子信箱 *</label>
+              <input type="email" id="user-email" class="form-input" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="project-type" class="form-label">洽詢類型</label>
+              <select id="project-type" class="form-input">
+                <option value="web-dev">全端 / 前端專案開發</option>
+                <option value="ui-ux">UI/UX 產品體驗規劃</option>
+                <option value="consulting">系統架構與技術顧問</option>
+                <option value="hiring">全職 / 兼職職缺洽談</option>
+                <option value="other">其他合作交流</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="user-msg" class="form-label">專案描述或訊息內容 *</label>
+              <textarea id="user-msg" class="form-textarea" placeholder="請簡要分享您的專案背景、時程預算或任何想討論的主題..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">
+              <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+              <span>發送合作訊息</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        Alex Chen<span style="color: var(--primary-500);">.</span>
+      </div>
+      <p class="footer-copy">
+        © 2026 陳子揚 Alex Chen. 版權所有 · 專注極致使用者體驗與現代全端架構
+      </p>
+      <div class="social-icons-group">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub">
+          <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
+          <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i>
+        </a>
+        <a href="mailto:alex.chen.dev@example.com" class="social-icon-btn" title="Email">
+          <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Project Detail Modal -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="關閉彈窗">
+        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+      </button>
+      <div class="modal-image-box">
+        <img id="modal-img" src="" alt="專案預覽大圖">
+      </div>
+      <div class="modal-body">
+        <div class="modal-category" id="modal-category">分類標籤</div>
+        <h2 class="modal-title" id="modal-title">專案標題</h2>
+        <p class="modal-desc" id="modal-desc">專案詳細說明與架構設計過程...</p>
+
+        <h4 class="modal-section-h">專案核心亮點</h4>
+        <ul class="modal-features" id="modal-features">
+          <!-- Populated by JS -->
+        </ul>
+
+        <h4 class="modal-section-h">技術實踐與工具棧</h4>
+        <div class="project-tech-tags" id="modal-tech-tags" style="margin-bottom: 20px;">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="modal-actions">
+          <a href="#" class="btn btn-primary btn-sm" id="modal-live-btn" onclick="event.preventDefault(); window.toast('正在連接專案 Demo 伺服器...');">
+            <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+            <span>進入線上展示</span>
+          </a>
+          <a href="#" class="btn btn-secondary btn-sm" id="modal-repo-btn" onclick="event.preventDefault(); window.toast('專案原始碼已在 GitHub 開源');">
+            <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+            <span>GitHub 代碼庫</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Back To Top Button -->
+  <a href="#hero" class="back-to-top" id="back-to-top" aria-label="回到頂部">
+    <i data-lucide="arrow-up" style="width: 20px; height: 20px;"></i>
+  </a>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="js/main.js"></script>
+</body>
+</html>
