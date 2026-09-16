@@ -1,302 +1,234 @@
 /**
- * Personal Portfolio & Resume Website
- * 7115064172 - 王鼎昌
+ * 電機系 - 王鼎昌 (7115064172)
+ * 五合一整合專屬網頁邏輯腳本
+ * 包含：即時跳動時鐘 (時分秒)、動物伴侶互動、Hello World 代碼編譯執行模擬
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize Lucide Icons
+  // 1. 初始化 Lucide 圖標
   if (window.lucide) {
     window.lucide.createIcons();
   }
 
-  // 2. Navigation & Header Scroll State
-  const header = document.getElementById('header');
-  const backToTopBtn = document.getElementById('back-to-top');
+  // 2. 即時時鐘邏輯 (時、分、秒)
+  const hoursEl = document.getElementById('clock-hours');
+  const minutesEl = document.getElementById('clock-minutes');
+  const secondsEl = document.getElementById('clock-seconds');
+  const ampmEl = document.getElementById('clock-ampm');
+  const dateStrEl = document.getElementById('clock-date-str');
+  const weekdayEl = document.getElementById('clock-weekday');
+  const secondsBarFill = document.getElementById('seconds-bar-fill');
+  const animalStatusMsg = document.getElementById('animal-status-msg');
+  const toggleFormatBtn = document.getElementById('toggle-format-btn');
 
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
+  let is24HourFormat = true;
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
-    if (scrollY > 40) {
-      header.classList.add('scrolled');
+  // 根據時段產生可愛動物狀態問候
+  function getAnimalMoodGreeting(hours) {
+    if (hours >= 5 && hours < 11) {
+      return '☀️ 早安！小貓咪正在窗邊伸懶腰曬太陽，王鼎昌正精神飽滿地寫程式！🐾';
+    } else if (hours >= 11 && hours < 14) {
+      return '🍱 午安！小柴犬開心地啃著骨頭，補足電力準備迎接下午的挑戰！🦴';
+    } else if (hours >= 14 && hours < 18) {
+      return '🌤️ 下午好！大熊貓正抱著竹子調試 C 語言單晶片程式碼～💻✨';
+    } else if (hours >= 18 && hours < 22) {
+      return '🌙 晚安時光！兔子蹦蹦跳跳，王鼎昌今日的 Python 演算法測試全部通過！🎉';
     } else {
-      header.classList.remove('scrolled');
+      return '💤 夜深了！小動物們都已進入夢鄉，親愛的工程師記得早點休息保養肝臟喔～🌌';
+    }
+  }
+
+  // 更新時鐘核心函式
+  function updateClock() {
+    const now = new Date();
+    const rawHours = now.getHours();
+    const rawMinutes = now.getMinutes();
+    const rawSeconds = now.getSeconds();
+
+    // 處理 12 / 24 小時制
+    let displayHours = rawHours;
+    let ampmText = '';
+
+    if (!is24HourFormat) {
+      ampmText = rawHours >= 12 ? 'PM' : 'AM';
+      displayHours = rawHours % 12 || 12;
+      ampmEl.style.display = 'inline-block';
+      ampmEl.textContent = ampmText;
+    } else {
+      ampmEl.style.display = 'none';
     }
 
-    if (scrollY > 350) {
-      backToTopBtn.classList.add('active');
-    } else {
-      backToTopBtn.classList.remove('active');
+    // 補零輸出時、分、秒
+    if (hoursEl) hoursEl.textContent = String(displayHours).padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = String(rawMinutes).padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = String(rawSeconds).padStart(2, '0');
+
+    // 日期與星期
+    if (dateStrEl) {
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const date = now.getDate();
+      const day = now.getDay();
+      dateStrEl.textContent = `${year} 年 ${month} 月 ${date} 日`;
+      if (weekdayEl) weekdayEl.textContent = weekdays[day];
     }
 
-    updateActiveNavLink();
-  });
+    // 秒數進度條平滑流動 (0% - 100%)
+    if (secondsBarFill) {
+      const secondsPercent = ((rawSeconds + 1) / 60) * 100;
+      secondsBarFill.style.width = `${secondsPercent}%`;
+    }
 
-  // 3. Mobile Navigation Menu Toggle
-  const mobileToggle = document.getElementById('mobile-toggle');
-  const navMenu = document.getElementById('nav-menu');
+    // 動物心情更新
+    if (animalStatusMsg && !animalStatusMsg.dataset.custom) {
+      animalStatusMsg.textContent = getAnimalMoodGreeting(rawHours);
+    }
+  }
 
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      mobileToggle.classList.toggle('open');
-      navMenu.classList.toggle('open');
-    });
-
-    // Close menu when clicking nav links
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileToggle.classList.remove('open');
-        navMenu.classList.remove('open');
-      });
+  // 綁定時制切換按鈕
+  if (toggleFormatBtn) {
+    toggleFormatBtn.addEventListener('click', () => {
+      is24HourFormat = !is24HourFormat;
+      toggleFormatBtn.textContent = is24HourFormat ? '切換 12 小時制' : '切換 24 小時制';
+      updateClock();
     });
   }
 
-  // 4. Scrollspy: Highlight Active Nav Link
+  // 立即啟動時鐘並每秒精準刷新
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // 3. 可愛動物摸摸互動反應
+  const peekers = document.querySelectorAll('.peeker-animal, .pet-btn');
+  const cuteQuotes = {
+    'cat': ['喵嗚～🐾 王鼎昌寫的程式碼絕對沒有 Bug！', '呼嚕呼嚕～小貓咪蹭蹭你的手心！🐱', '喵！今天也是電力充沛的一天！'],
+    'shiba': ['汪汪！柴犬搖著螺旋槳尾巴飛奔過來討摸！🐕', '汪！電機系王鼎昌好棒！🐾', '柴柴送你一朵小向日葵 🌻'],
+    'bunny': ['咕嚕咕嚕～兔子開心地在軟綿綿雲朵裡蹦跳！🐰', '兔兔抖動長耳朵，接收到滿滿的好運！✨', '撲通！兔子跳進懷裡蹭蹭！'],
+    'panda': ['熊貓抱著大竹子在草地上打滾～🐼', '熊貓打瞌睡中... zzz... 🐾', '熊貓送你一個毛茸茸的溫暖大擁抱！']
+  };
+
+  peekers.forEach(el => {
+    el.addEventListener('click', () => {
+      const type = el.getAttribute('data-animal') || 'cat';
+      const quotes = cuteQuotes[type] || cuteQuotes['cat'];
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+      if (animalStatusMsg) {
+        animalStatusMsg.dataset.custom = 'true';
+        animalStatusMsg.style.transform = 'scale(1.1)';
+        animalStatusMsg.textContent = randomQuote;
+
+        setTimeout(() => {
+          animalStatusMsg.style.transform = 'scale(1)';
+        }, 250);
+
+        // 5 秒後恢復為時間問候
+        setTimeout(() => {
+          delete animalStatusMsg.dataset.custom;
+          updateClock();
+        }, 5000);
+      }
+    });
+  });
+
+  // 4. Hello World 互動程式終端機
+  const codeTabC = document.getElementById('tab-c');
+  const codeTabPy = document.getElementById('tab-py');
+  const codeArea = document.getElementById('code-display');
+  const runBtn = document.getElementById('run-code-btn');
+  const termOutput = document.getElementById('terminal-output');
+
+  let currentLang = 'c';
+
+  const codeSnippets = {
+    'c': `<span class="code-cmt">// C 語言 - 電機系 王鼎昌 (7115064172)</span>
+<span class="code-kw">#include</span> <span class="code-str">&lt;stdio.h&gt;</span>
+
+<span class="code-kw">int</span> <span class="code-fn">main</span>() {
+    <span class="code-fn">printf</span>(<span class="code-str">"Hello, World! 🚀\\n"</span>);
+    <span class="code-fn">printf</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 向世界問好！🐾\\n"</span>);
+    <span class="code-kw">return</span> <span class="code-fn">0</span>;
+}`,
+    'py': `<span class="code-cmt"># Python 3 - 電機系 王鼎昌 (7115064172)</span>
+<span class="code-kw">def</span> <span class="code-fn">main</span>():
+    <span class="code-fn">print</span>(<span class="code-str">"Hello, World! 🚀"</span>)
+    <span class="code-fn">print</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 向世界問好！🐾"</span>)
+
+<span class="code-kw">if</span> __name__ == <span class="code-str">"__main__"</span>:
+    <span class="code-fn">main</span>()`
+  };
+
+  if (codeTabC && codeTabPy) {
+    codeTabC.addEventListener('click', () => {
+      currentLang = 'c';
+      codeTabC.classList.add('active');
+      codeTabPy.classList.remove('active');
+      codeArea.innerHTML = `<pre><code>${codeSnippets['c']}</code></pre>`;
+      termOutput.innerHTML = `<div class="output-line" style="color: #64748b;">// 點擊上方綠色按鈕執行 hello.c ...</div>`;
+    });
+
+    codeTabPy.addEventListener('click', () => {
+      currentLang = 'py';
+      codeTabPy.classList.add('active');
+      codeTabC.classList.remove('active');
+      codeArea.innerHTML = `<pre><code>${codeSnippets['py']}</code></pre>`;
+      termOutput.innerHTML = `<div class="output-line" style="color: #64748b;"># 點擊上方綠色按鈕執行 hello.py ...</div>`;
+    });
+  }
+
+  // 點擊執行按鈕
+  if (runBtn) {
+    runBtn.addEventListener('click', () => {
+      runBtn.disabled = true;
+      runBtn.innerHTML = `<span>⚙️ 編譯執行中...</span>`;
+
+      termOutput.innerHTML = `
+        <div class="output-line" style="color: #94a3b8;">&gt; ${currentLang === 'c' ? 'gcc hello.c -o hello && ./hello' : 'python3 hello.py'}</div>
+        <div class="output-line" style="color: #fbbf24;">⚡ 連接電機系運算節點環境中...</div>
+      `;
+
+      setTimeout(() => {
+        runBtn.disabled = false;
+        runBtn.innerHTML = `<span>▶ 執行程式 (Run Code)</span>`;
+
+        termOutput.innerHTML = `
+          <div class="output-line" style="color: #94a3b8;">&gt; ${currentLang === 'c' ? 'gcc hello.c -o hello && ./hello' : 'python3 hello.py'}</div>
+          <div class="output-line success">🎉 Hello, World! 🚀</div>
+          <div class="output-line" style="color: #38bdf8; font-weight: 600;">🐾 電機工程學系 · 王鼎昌 (學號: 7115064172) 向世界問好！</div>
+          <div class="output-line" style="color: #a7f3d0; font-size: 0.84rem; margin-top: 4px;">✔ 程式退出狀態碼: 0 (耗時: 0.002s) · 動物小夥伴們熱烈鼓掌喝采！✨</div>
+        `;
+
+        // 觸發動物慶祝
+        if (animalStatusMsg) {
+          animalStatusMsg.style.transform = 'scale(1.12)';
+          animalStatusMsg.textContent = '🎉 哇！Hello World 執行大成功！小動物們開心地跳起慶祝舞！🐾✨';
+          setTimeout(() => {
+            animalStatusMsg.style.transform = 'scale(1)';
+          }, 300);
+        }
+      }, 550);
+    });
+  }
+
+  // 5. 滾動監聽導覽列高亮
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  function updateActiveNavLink() {
-    const scrollPosition = window.scrollY + 160;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + 140;
+    sections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      const id = sec.getAttribute('id');
+      if (scrollPos >= top && scrollPos < top + height) {
         navLinks.forEach(link => {
           link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
+          if (link.getAttribute('href') === `#${id}`) {
             link.classList.add('active');
           }
         });
       }
     });
-  }
-
-  // 5. Portfolio Filtering
-  const filterBtns = document.querySelectorAll('.portfolio-tabs .tab-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active from all buttons
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-filter');
-
-      projectCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          card.style.display = 'flex';
-          card.style.animation = 'fadeInCard 0.4s ease forwards';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
   });
-
-  // 6. Project Details Data & Modal Logic
-  const projectsData = {
-    'project-1': {
-      title: 'OmniCloud 企業級巨量數據即時監控儀表板',
-      category: 'Web 應用系統 · SaaS 儀表板',
-      image: 'assets/images/project-1.jpg',
-      desc: 'OmniCloud 專為超大型微服務叢集與跨國混合雲環境研發。透過即時 WebWorker 多執行緒運算與自適應數據壓縮技術，達成十萬量級指標秒級繪製與即時告警通知。在實際落地測試中，為企業維運團隊縮短 60% 的問題定位時間。',
-      features: [
-        '即時百萬級數據流 WebSocket 串流推播與局部 DOM 優化渲染',
-        '自定義圖表畫布與多維度指標篩選器（支援熱力圖、拓撲拓元圖、柱流圖）',
-        '整合 RBAC 細部權限模型與審計日誌追蹤，通過金融級資安架構評估',
-        '響應式暗/淺雙色模式智能適配，提升長時間監看舒適度'
-      ],
-      tags: ['React 18', 'TypeScript', 'ECharts', 'WebSocket', 'TailwindCSS', 'Vite']
-    },
-    'project-2': {
-      title: 'PulsePay 次世代虛擬資產與智慧錢包 App',
-      category: '行動介面 · FinTech 金融',
-      image: 'assets/images/project-2.jpg',
-      desc: 'PulsePay 以流暢的人機交互體驗重塑去中心化資產管理。設計導入無感密鑰備份、FaceID / 指紋極速認證，並具備即時法幣/加密貨幣智能匯率換算機制，讓初學者也能在 3 秒內完成安全轉帳與資產配置。',
-      features: [
-        '整合生物辨識（Biometrics）與安全晶片隔離儲存機制',
-        '多鏈資產整合視圖，即時鏈上 gas 費率預估與滑點提醒',
-        '流暢 60fps 原生手勢互動動畫，極致操作回饋感',
-        '多語言在地化支持（繁中、英語、日語）與暗光金融儀表盤'
-      ],
-      tags: ['React Native', 'Flutter', 'Figma', 'Web3.js', 'Ethers.js', 'Tailwind']
-    },
-    'project-3': {
-      title: 'Aether AI 靈感生成協同畫布工作台',
-      category: 'Web 應用系統 · AI 智能工作流',
-      image: 'assets/images/project-3.jpg',
-      desc: 'Aether AI 打造了專為數位創作者量身定制的無限節點式畫布。結合多模態大型語言模型（LLM）與即時 Diffusion 生圖引擎，使用者可透過拖曳連接詞彙、參考圖與語氣節點，一鍵批次生成高保真設計提案與文案。',
-      features: [
-        '無限向量畫布（Infinite Canvas）與平滑縮放渲染引擎',
-        '多模態提示詞即時語意擴展與視覺關聯建議',
-        'WebSocket 多人即時游標同屏在線協同編輯',
-        'Python FastAPI 後端非同步處理高負載生圖任務佇列'
-      ],
-      tags: ['Next.js 14', 'Python FastAPI', 'Canvas API', 'Redis Queue', 'Docker']
-    },
-    'project-4': {
-      title: 'Boutique 極簡美學精品電商官網與互動設計',
-      category: '介面設計 · 奢華電商體驗',
-      image: 'assets/images/project-4.jpg',
-      desc: '為巴黎獨立高端時尚設計師品牌打造的全球官方購物平台。設計理念強調「Less is More」，利用大面積留白、柔和冷灰色調與細膩的捲動視差動畫，傳遞品牌優雅內斂的奢華質感，全站轉化率提升 34%。',
-      features: [
-        '微互動視差捲動與平滑錨點磁吸轉場（GSAP ScrollTrigger）',
-        '360 度產品多視角 3D 預覽與材質光影細節檢視',
-        '秒級一鍵結帳流程（整合 Apple Pay / Google Pay / Stripe）',
-        '完全無障礙標準 WCAG 2.1 AA 規範合規認證'
-      ],
-      tags: ['UI/UX Research', 'Figma', 'Vue 3', 'GSAP', 'Stripe API', 'SCSS']
-    }
-  };
-
-  const modal = document.getElementById('project-modal');
-  const modalCloseBtn = document.getElementById('modal-close-btn');
-  const modalImg = document.getElementById('modal-img');
-  const modalCategory = document.getElementById('modal-category');
-  const modalTitle = document.getElementById('modal-title');
-  const modalDesc = document.getElementById('modal-desc');
-  const modalFeatures = document.getElementById('modal-features');
-  const modalTechTags = document.getElementById('modal-tech-tags');
-
-  function openProjectModal(projectId) {
-    const data = projectsData[projectId];
-    if (!data) return;
-
-    modalImg.src = data.image;
-    modalImg.alt = data.title;
-    modalCategory.textContent = data.category;
-    modalTitle.textContent = data.title;
-    modalDesc.textContent = data.desc;
-
-    // Render Features
-    modalFeatures.innerHTML = data.features.map(feat => `
-      <li>
-        <span class="bullet">✦</span>
-        <span>${feat}</span>
-      </li>
-    `).join('');
-
-    // Render Tech tags
-    modalTechTags.innerHTML = data.tags.map(tag => `
-      <span class="tech-tag">${tag}</span>
-    `).join('');
-
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
-  }
-
-  function closeProjectModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  // Bind modal open triggers
-  document.querySelectorAll('.view-modal-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = btn.getAttribute('data-id');
-      openProjectModal(id);
-    });
-  });
-
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', closeProjectModal);
-  }
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeProjectModal();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeProjectModal();
-    }
-  });
-
-  // 7. Toast Notification Utility
-  window.toast = function(message) {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `
-      <span class="toast-icon">✨</span>
-      <span>${message}</span>
-    `;
-    container.appendChild(toast);
-
-    // Trigger animation
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 10);
-
-    // Auto remove after 3.5s
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => {
-        toast.remove();
-      }, 400);
-    }, 3500);
-  };
-
-  // 8. Contact Form Handling
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('user-name').value.trim();
-      const email = document.getElementById('user-email').value.trim();
-
-      const submitBtn = document.getElementById('submit-btn');
-      const originalText = submitBtn.innerHTML;
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>發送處理中...</span>`;
-
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-        if (window.lucide) window.lucide.createIcons();
-
-        window.toast(`🎉 感謝您，${name}！訊息已順利送出，我將盡快回覆至 ${email}`);
-        contactForm.reset();
-      }, 700);
-    });
-  }
-
-  // 9. Back to Top Smooth Scroll
-  if (backToTopBtn) {
-    backToTopBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
 });
-
-// CSS Animation Inject for Filter Fade
-const styleSheet = document.createElement('style');
-styleSheet.textContent = `
-  @keyframes fadeInCard {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`;
-document.head.appendChild(styleSheet);
