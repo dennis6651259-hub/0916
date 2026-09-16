@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>電機系 - 王鼎昌 | 可愛動物即時時鐘 & 技能展示</title>
+  <meta name="description" content="電機系王鼎昌的可愛動物即時動態時鐘、Python 與 C 語言技能展示以及 Hello World 互動專案。">
+  <link rel="stylesheet" href="css/clock.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Background Floating Clouds -->
+  <div class="floating-cloud cloud-1"></div>
+  <div class="floating-cloud cloud-2"></div>
+  <div class="floating-cloud cloud-3"></div>
+
+  <div class="container">
+    <!-- Navbar -->
+    <header class="cute-navbar">
+      <div class="nav-wrapper">
+        <a href="#clock" class="nav-brand">
+          <span class="brand-paw">🐾</span>
+          <span>電機系 · 王鼎昌</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#clock" class="nav-link">即時時鐘</a></li>
+          <li><a href="#about" class="nav-link">自我介紹</a></li>
+          <li><a href="#skills" class="nav-link">專業技能</a></li>
+          <li><a href="#project" class="nav-link">Hello World</a></li>
+        </ul>
+
+        <a href="index.html" class="btn-back-home" title="前往個人完整履歷與作品集主站">
+          <span>💼 完整履歷主站</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- 1. Real-Time Animal Clock Section -->
+    <section class="clock-section" id="clock">
+      <div class="clock-card-wrapper">
+        <!-- Cute Mascot Animals Peeking over the clock -->
+        <div class="animal-peeker-row">
+          <!-- 1. Cute Cat Peeker -->
+          <div class="peeker-animal" data-animal="cat" title="摸摸小貓咪 🐱">
+            <svg class="cat-peeker" viewBox="0 0 100 90">
+              <!-- Ears -->
+              <polygon points="20,40 32,8 45,35" fill="#fed7aa" stroke="#fb923c" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="25,35 32,15 40,32" fill="#f472b6" opacity="0.6"/>
+              <polygon points="80,40 68,8 55,35" fill="#fed7aa" stroke="#fb923c" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="75,35 68,15 60,32" fill="#f472b6" opacity="0.6"/>
+              <!-- Head -->
+              <ellipse cx="50" cy="55" rx="38" ry="30" fill="#ffedd5" stroke="#fb923c" stroke-width="3.5"/>
+              <!-- Cheeks -->
+              <circle cx="32" cy="62" r="5" fill="#f472b6" opacity="0.45"/>
+              <circle cx="68" cy="62" r="5" fill="#f472b6" opacity="0.45"/>
+              <!-- Eyes -->
+              <ellipse cx="38" cy="52" rx="4.5" ry="6" fill="#1e293b"/>
+              <circle cx="40" cy="50" r="2" fill="#ffffff"/>
+              <ellipse cx="62" cy="52" rx="4.5" ry="6" fill="#1e293b"/>
+              <circle cx="64" cy="50" r="2" fill="#ffffff"/>
+              <!-- Nose & Mouth -->
+              <polygon points="48,58 52,58 50,61" fill="#f472b6"/>
+              <path d="M 46 63 Q 50 67 54 63" stroke="#1e293b" stroke-width="2" fill="none"/>
+              <!-- Whiskers -->
+              <line x1="20" y1="56" x2="30" y2="58" stroke="#cbd5e1" stroke-width="2"/>
+              <line x1="20" y1="62" x2="30" y2="62" stroke="#cbd5e1" stroke-width="2"/>
+              <line x1="80" y1="56" x2="70" y2="58" stroke="#cbd5e1" stroke-width="2"/>
+              <line x1="80" y1="62" x2="70" y2="62" stroke="#cbd5e1" stroke-width="2"/>
+              <!-- Paws resting on clock -->
+              <ellipse cx="36" cy="84" rx="9" ry="6" fill="#ffffff" stroke="#fb923c" stroke-width="2.5"/>
+              <ellipse cx="64" cy="84" rx="9" ry="6" fill="#ffffff" stroke="#fb923c" stroke-width="2.5"/>
+            </svg>
+          </div>
+
+          <!-- 2. Cute Shiba Inu Peeker -->
+          <div class="peeker-animal" data-animal="shiba" title="摸摸小柴犬 🐕">
+            <svg class="shiba-peeker" viewBox="0 0 100 90">
+              <!-- Ears -->
+              <polygon points="18,36 30,6 44,30" fill="#d97706" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="82,36 70,6 56,30" fill="#d97706" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/>
+              <!-- Head -->
+              <ellipse cx="50" cy="54" rx="38" ry="32" fill="#f59e0b" stroke="#b45309" stroke-width="3.5"/>
+              <!-- White muzzle -->
+              <ellipse cx="50" cy="62" rx="24" ry="18" fill="#ffffff"/>
+              <!-- Cheeks -->
+              <circle cx="28" cy="60" r="5" fill="#fb7185" opacity="0.4"/>
+              <circle cx="72" cy="60" r="5" fill="#fb7185" opacity="0.4"/>
+              <!-- Eyes with eyebrows -->
+              <circle cx="36" cy="44" r="3" fill="#ffffff"/>
+              <circle cx="64" cy="44" r="3" fill="#ffffff"/>
+              <ellipse cx="36" cy="50" rx="4" ry="5" fill="#1e293b"/>
+              <circle cx="37" cy="48" r="1.5" fill="#ffffff"/>
+              <ellipse cx="64" cy="50" rx="4" ry="5" fill="#1e293b"/>
+              <circle cx="65" cy="48" r="1.5" fill="#ffffff"/>
+              <!-- Nose & Tongue -->
+              <ellipse cx="50" cy="59" rx="5" ry="4" fill="#0f172a"/>
+              <path d="M 46 64 Q 50 67 54 64" stroke="#0f172a" stroke-width="2" fill="none"/>
+              <ellipse cx="50" cy="68" rx="4" ry="5" fill="#f43f5e"/>
+              <!-- Paws -->
+              <ellipse cx="34" cy="85" rx="9" ry="6" fill="#ffffff" stroke="#b45309" stroke-width="2.5"/>
+              <ellipse cx="66" cy="85" rx="9" ry="6" fill="#ffffff" stroke="#b45309" stroke-width="2.5"/>
+            </svg>
+          </div>
+
+          <!-- 3. Cute Bunny Peeker -->
+          <div class="peeker-animal" data-animal="bunny" title="摸摸小兔子 🐰">
+            <svg class="bunny-peeker" viewBox="0 0 100 90">
+              <!-- Long Ears -->
+              <ellipse cx="34" cy="22" rx="8" ry="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+              <ellipse cx="34" cy="22" rx="4" ry="15" fill="#fbcfe8"/>
+              <ellipse cx="66" cy="22" rx="8" ry="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+              <ellipse cx="66" cy="22" rx="4" ry="15" fill="#fbcfe8"/>
+              <!-- Head -->
+              <ellipse cx="50" cy="58" rx="34" ry="28" fill="#ffffff" stroke="#cbd5e1" stroke-width="3.5"/>
+              <!-- Cheeks -->
+              <circle cx="30" cy="62" r="6" fill="#f472b6" opacity="0.4"/>
+              <circle cx="70" cy="62" r="6" fill="#f472b6" opacity="0.4"/>
+              <!-- Eyes -->
+              <ellipse cx="38" cy="54" rx="4" ry="5" fill="#0f172a"/>
+              <circle cx="40" cy="52" r="1.5" fill="#ffffff"/>
+              <ellipse cx="62" cy="54" rx="4" ry="5" fill="#0f172a"/>
+              <circle cx="64" cy="52" r="1.5" fill="#ffffff"/>
+              <!-- Nose & Mouth -->
+              <polygon points="48,60 52,60 50,63" fill="#f472b6"/>
+              <path d="M 47 65 Q 50 68 53 65" stroke="#0f172a" stroke-width="2" fill="none"/>
+              <!-- Paws -->
+              <ellipse cx="35" cy="84" rx="8" ry="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5"/>
+              <ellipse cx="65" cy="84" rx="8" ry="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Main Clock Board -->
+        <div class="clock-board">
+          <!-- Date Row -->
+          <div class="clock-date-row">
+            <div class="date-pill">
+              <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+              <span id="clock-date-str">2026 年 9 月 16 日</span>
+            </div>
+            <div class="weekday-pill" id="clock-weekday">星期三</div>
+            <button class="format-toggle-btn" id="toggle-format-btn">切換 12 小時制</button>
+          </div>
+
+          <!-- Time Digits -->
+          <div class="clock-digits-wrapper">
+            <!-- Hours -->
+            <div class="digit-card">
+              <span class="digit-num" id="clock-hours">11</span>
+              <span class="digit-lbl">時 HOURS</span>
+            </div>
+
+            <div class="digit-colon">:</div>
+
+            <!-- Minutes -->
+            <div class="digit-card">
+              <span class="digit-num" id="clock-minutes">05</span>
+              <span class="digit-lbl">分 MINUTES</span>
+            </div>
+
+            <div class="digit-colon">:</div>
+
+            <!-- Seconds -->
+            <div class="digit-card" style="border-color: var(--blue-400);">
+              <span class="digit-num" id="clock-seconds" style="color: var(--blue-500);">42</span>
+              <span class="digit-lbl">秒 SECONDS</span>
+            </div>
+
+            <span class="ampm-pill" id="clock-ampm" style="display: none;">AM</span>
+          </div>
+
+          <!-- Seconds Progress Bar -->
+          <div class="seconds-bar-wrapper">
+            <div class="seconds-bar-fill" id="seconds-bar-fill"></div>
+          </div>
+
+          <!-- Interactive Animal Status Bubble -->
+          <div class="animal-status-bubble" id="animal-status-bubble">
+            <span id="animal-status-msg">☀️ 早安！貓咪正在曬太陽喝牛奶，精力充沛！🐾</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. About Me Section (電機系 - 王鼎昌) -->
+    <section class="section" id="about">
+      <div class="section-head">
+        <div class="cute-badge">⚡ ELECTRICAL ENGINEERING</div>
+        <h2 class="section-title">自我介紹 · 電機人特質</h2>
+      </div>
+
+      <div class="about-card">
+        <div class="about-avatar-box">
+          <div class="avatar-circle">
+            <img src="assets/images/profile.jpg" alt="王鼎昌 個人形象照">
+          </div>
+          <span class="avatar-role-pill">電機系工程師 ⚡</span>
+        </div>
+
+        <div class="about-info">
+          <h3>
+            <span>王鼎昌</span>
+            <span class="student-tag">電機工程學系 · 學號 7115064172</span>
+          </h3>
+          <div class="about-dept">Dennis Wang · 軟硬整合與嵌入式系統熱愛者</div>
+          <p class="about-p">
+            嗨！我是<strong>王鼎昌</strong>。來自<strong>電機工程學系</strong>，專注於底層硬體運算與高階軟體演算法的無縫對接。熱愛使用 <strong>C 語言</strong>控制硬體微處理器與通訊協定，並善用 <strong>Python</strong> 進行自動化運算、演算法模擬與資料處理！
+          </p>
+
+          <div class="traits-row">
+            <div class="trait-chip">⚡ 電路分析與硬體底層</div>
+            <div class="trait-chip">💻 C 語言指標與記憶體架構</div>
+            <div class="trait-chip">🐍 Python 自動化與演算法</div>
+            <div class="trait-chip">🐾 可愛動物與乾淨代碼</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Skills Section (Python & C) -->
+    <section class="section" id="skills">
+      <div class="section-head">
+        <div class="cute-badge">💡 CORE CAPABILITIES</div>
+        <h2 class="section-title">專業核心技能 · Python & C</h2>
+      </div>
+
+      <div class="skills-grid">
+        <!-- C Language Card -->
+        <div class="cute-skill-card">
+          <div class="skill-header-row">
+            <div class="skill-title-group">
+              <div class="skill-icon-badge" style="background: #e0f2fe; color: #0284c7;">
+                ⚙️
+              </div>
+              <div>
+                <div class="skill-name">C 語言 (C Programming)</div>
+                <div class="skill-tagline">底層控制 · 記憶體管理 · 嵌入式系統</div>
+              </div>
+            </div>
+            <div class="animal-companion-badge" title="小貓咪除錯員">🐱</div>
+          </div>
+
+          <p class="skill-desc">
+            電機系最扎實的核心功底。熟練運用指標（Pointers）、結構體（Structs）與動態記憶體配置，實現高性能與極致執行效率。
+          </p>
+
+          <ul class="skill-highlights">
+            <li><span class="dot">✦</span> 記憶體指標操作與暫存器 (Registers) 直接控制</li>
+            <li><span class="dot">✦</span> 單晶片微控制器 (MCU) 與 GPIO / UART 串列通訊</li>
+            <li><span class="dot">✦</span> 資料結構演算法（鏈結串列、二元樹、快速排序）</li>
+          </ul>
+        </div>
+
+        <!-- Python Language Card -->
+        <div class="cute-skill-card">
+          <div class="skill-header-row">
+            <div class="skill-title-group">
+              <div class="skill-icon-badge" style="background: #fef3c7; color: #d97706;">
+                🐍
+              </div>
+              <div>
+                <div class="skill-name">Python 程式語言</div>
+                <div class="skill-tagline">快速開發 · 自動化腳本 · 數據演算法</div>
+              </div>
+            </div>
+            <div class="animal-companion-badge" title="小柴犬程式助手">🐕</div>
+          </div>
+
+          <p class="skill-desc">
+            高效率現代化工具。擅長快速驗證電機演算法、自動化批次資料處理、訊號頻譜繪製與原型架構搭建。
+          </p>
+
+          <ul class="skill-highlights">
+            <li><span class="dot">✦</span> 數學與工程計算（NumPy, SciPy 訊號處理）</li>
+            <li><span class="dot">✦</span> 自動化腳本編寫與硬體訊號記錄器 (Data Logger)</li>
+            <li><span class="dot">✦</span> 現代語法結構、物件導向與簡潔代碼設計</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Project: Hello World Interactive Terminal -->
+    <section class="section" id="project">
+      <div class="section-head">
+        <div class="cute-badge">🚀 INTERACTIVE PROJECT</div>
+        <h2 class="section-title">專案展示 · Hello World</h2>
+      </div>
+
+      <div class="project-card">
+        <div class="project-intro-row">
+          <div>
+            <div class="project-title">Hello World · 一切程式設計的起點</div>
+            <div class="project-subtitle">萬物始於第一行代碼。支援 C 語言與 Python 雙語法即時切換與互動編譯執行！</div>
+          </div>
+          <span class="project-badge-tag">互動模擬環境 · 點擊執行</span>
+        </div>
+
+        <!-- Interactive Terminal -->
+        <div class="terminal-box">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <div class="term-dot red"></div>
+              <div class="term-dot yellow"></div>
+              <div class="term-dot green"></div>
+            </div>
+            <div class="terminal-tabs">
+              <button class="code-tab-btn active" id="tab-c">hello.c (C 語言)</button>
+              <button class="code-tab-btn" id="tab-py">hello.py (Python)</button>
+            </div>
+          </div>
+
+          <!-- Code Display -->
+          <div class="code-editor-area" id="code-display">
+            <pre><code><span class="code-cmt">// C 語言 - 電機系 王鼎昌 (7115064172)</span>
+<span class="code-kw">#include</span> <span class="code-str">&lt;stdio.h&gt;</span>
+
+<span class="code-kw">int</span> <span class="code-fn">main</span>() {
+    <span class="code-fn">printf</span>(<span class="code-str">"Hello, World! 🚀\n"</span>);
+    <span class="code-fn">printf</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 向世界問好！🐾\n"</span>);
+    <span class="code-kw">return</span> <span class="code-fn">0</span>;
+}</code></pre>
+          </div>
+
+          <!-- Actions Bar -->
+          <div class="terminal-actions-bar">
+            <span style="font-size: 0.85rem; color: #94a3b8;">環境：GCC 14.2 / Python 3.14 · 電機系運算節點</span>
+            <button class="run-btn" id="run-code-btn">
+              <span>▶ 執行程式 (Run Code)</span>
+            </button>
+          </div>
+
+          <!-- Terminal Output -->
+          <div class="terminal-output" id="terminal-output">
+            <div class="output-line" style="color: #64748b;">// 點擊上方綠色按鈕執行 hello.c ...</div>
+          </div>
+        </div>
+
+        <!-- Cute Animal Cheer Buttons -->
+        <div class="pets-gallery">
+          <button class="pet-btn" data-animal="cat">🐱 摸摸貓咪</button>
+          <button class="pet-btn" data-animal="shiba">🐕 摸摸柴犬</button>
+          <button class="pet-btn" data-animal="bunny">🐰 摸摸兔子</button>
+          <button class="pet-btn" data-animal="panda">🐼 摸摸熊貓</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="cute-footer">
+      <div class="footer-paw-banner">🐾 🐱 🐕 🐰 🐼 🐾</div>
+      <p>© 2026 電機系 · 王鼎昌 (Dennis Wang · 7115064172). 版權所有</p>
+      <p style="font-size: 0.82rem; margin-top: 6px;">以純 HTML, CSS & JavaScript 打造 · 淺藍色可愛動物主題</p>
+    </footer>
+  </div>
+
+  <!-- Lucide Icon Init -->
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
+  <!-- Main Clock Script -->
+  <script src="js/clock.js"></script>
+</body>
+</html>

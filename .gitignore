@@ -7,5 +7,7 @@ Desktop.ini
 .vscode/
 .idea/
 
-# Logs
+# Logs & local helpers
 *.log
+*.bat
+
