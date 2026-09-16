@@ -132,8 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Hello World 互動程式終端機
+  // 4. Project: 網站 - 程式互動模擬終端機
   const codeTabC = document.getElementById('tab-c');
+  const codeTabCpp = document.getElementById('tab-cpp');
   const codeTabPy = document.getElementById('tab-py');
   const codeArea = document.getElementById('code-display');
   const runBtn = document.getElementById('run-code-btn');
@@ -146,36 +147,39 @@ document.addEventListener('DOMContentLoaded', () => {
 <span class="code-kw">#include</span> <span class="code-str">&lt;stdio.h&gt;</span>
 
 <span class="code-kw">int</span> <span class="code-fn">main</span>() {
-    <span class="code-fn">printf</span>(<span class="code-str">"Hello, World! 🚀\\n"</span>);
-    <span class="code-fn">printf</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 向世界問好！🐾\\n"</span>);
+    <span class="code-fn">printf</span>(<span class="code-str">"哈囉！歡迎來到王鼎昌的個人網站！🚀\\n"</span>);
+    <span class="code-fn">printf</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172)🐾\\n"</span>);
+    <span class="code-kw">return</span> <span class="code-fn">0</span>;
+}`,
+    'cpp': `<span class="code-cmt">// C++ - 電機系 王鼎昌 (7115064172)</span>
+<span class="code-kw">#include</span> <span class="code-str">&lt;iostream&gt;</span>
+<span class="code-kw">using namespace</span> std;
+
+<span class="code-kw">int</span> <span class="code-fn">main</span>() {
+    cout &lt;&lt; <span class="code-str">"哈囉！王鼎昌的個人網站專案 C++ 核心啟動！🚀"</span> &lt;&lt; endl;
+    cout &lt;&lt; <span class="code-str">"Skill: C, C++, Python 整合完成！🐾"</span> &lt;&lt; endl;
     <span class="code-kw">return</span> <span class="code-fn">0</span>;
 }`,
     'py': `<span class="code-cmt"># Python 3 - 電機系 王鼎昌 (7115064172)</span>
 <span class="code-kw">def</span> <span class="code-fn">main</span>():
-    <span class="code-fn">print</span>(<span class="code-str">"Hello, World! 🚀"</span>)
-    <span class="code-fn">print</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 向世界問好！🐾"</span>)
+    <span class="code-fn">print</span>(<span class="code-str">"哈囉！歡迎來到王鼎昌的個人網站！🚀"</span>)
+    <span class="code-fn">print</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 祝您好心情！🐾"</span>)
 
 <span class="code-kw">if</span> __name__ == <span class="code-str">"__main__"</span>:
     <span class="code-fn">main</span>()`
   };
 
-  if (codeTabC && codeTabPy) {
-    codeTabC.addEventListener('click', () => {
-      currentLang = 'c';
-      codeTabC.classList.add('active');
-      codeTabPy.classList.remove('active');
-      codeArea.innerHTML = `<pre><code>${codeSnippets['c']}</code></pre>`;
-      termOutput.innerHTML = `<div class="output-line" style="color: #64748b;">// 點擊上方綠色按鈕執行 hello.c ...</div>`;
-    });
-
-    codeTabPy.addEventListener('click', () => {
-      currentLang = 'py';
-      codeTabPy.classList.add('active');
-      codeTabC.classList.remove('active');
-      codeArea.innerHTML = `<pre><code>${codeSnippets['py']}</code></pre>`;
-      termOutput.innerHTML = `<div class="output-line" style="color: #64748b;"># 點擊上方綠色按鈕執行 hello.py ...</div>`;
-    });
+  function setTab(lang, btn) {
+    currentLang = lang;
+    [codeTabC, codeTabCpp, codeTabPy].forEach(b => b && b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    if (codeArea) codeArea.innerHTML = `<pre><code>${codeSnippets[lang]}</code></pre>`;
+    if (termOutput) termOutput.innerHTML = `<div class="output-line" style="color: #64748b;">// 點擊下方按鈕執行 main.${lang === 'py' ? 'py' : (lang === 'cpp' ? 'cpp' : 'c')} ...</div>`;
   }
+
+  if (codeTabC) codeTabC.addEventListener('click', () => setTab('c', codeTabC));
+  if (codeTabCpp) codeTabCpp.addEventListener('click', () => setTab('cpp', codeTabCpp));
+  if (codeTabPy) codeTabPy.addEventListener('click', () => setTab('py', codeTabPy));
 
   // 點擊執行按鈕
   if (runBtn) {
@@ -183,26 +187,31 @@ document.addEventListener('DOMContentLoaded', () => {
       runBtn.disabled = true;
       runBtn.innerHTML = `<span>⚙️ 編譯執行中...</span>`;
 
+      const cmdMap = {
+        'c': 'gcc main.c -o website && ./website',
+        'cpp': 'g++ main.cpp -o website && ./website',
+        'py': 'python3 main.py'
+      };
+
       termOutput.innerHTML = `
-        <div class="output-line" style="color: #94a3b8;">&gt; ${currentLang === 'c' ? 'gcc hello.c -o hello && ./hello' : 'python3 hello.py'}</div>
-        <div class="output-line" style="color: #fbbf24;">⚡ 連接電機系運算節點環境中...</div>
+        <div class="output-line" style="color: #94a3b8;">&gt; ${cmdMap[currentLang]}</div>
+        <div class="output-line" style="color: #fbbf24;">⚡ 網站即時編譯運算中...</div>
       `;
 
       setTimeout(() => {
         runBtn.disabled = false;
-        runBtn.innerHTML = `<span>▶ 執行程式 (Run Code)</span>`;
+        runBtn.innerHTML = `<span>▶ 執行專案 (Run Project)</span>`;
 
         termOutput.innerHTML = `
-          <div class="output-line" style="color: #94a3b8;">&gt; ${currentLang === 'c' ? 'gcc hello.c -o hello && ./hello' : 'python3 hello.py'}</div>
-          <div class="output-line success">🎉 Hello, World! 🚀</div>
-          <div class="output-line" style="color: #38bdf8; font-weight: 600;">🐾 電機工程學系 · 王鼎昌 (學號: 7115064172) 向世界問好！</div>
-          <div class="output-line" style="color: #a7f3d0; font-size: 0.84rem; margin-top: 4px;">✔ 程式退出狀態碼: 0 (耗時: 0.002s) · 動物小夥伴們熱烈鼓掌喝采！✨</div>
+          <div class="output-line" style="color: #94a3b8;">&gt; ${cmdMap[currentLang]}</div>
+          <div class="output-line success">🎉 哈囉！歡迎來到王鼎昌的個人網站！🚀</div>
+          <div class="output-line" style="color: #38bdf8; font-weight: 600;">🐾 電機工程學系 · 王鼎昌 (學號: 7115064172)</div>
+          <div class="output-line" style="color: #a7f3d0; font-size: 0.84rem; margin-top: 4px;">✔ 專案狀態: 正常運行中 · 可愛動物夥伴為您喝采！✨</div>
         `;
 
-        // 觸發動物慶祝
         if (animalStatusMsg) {
           animalStatusMsg.style.transform = 'scale(1.12)';
-          animalStatusMsg.textContent = '🎉 哇！Hello World 執行大成功！小動物們開心地跳起慶祝舞！🐾✨';
+          animalStatusMsg.textContent = '🎉 哈囉！專案執行大成功！貓咪、柴犬與兔子開心地跳起慶祝舞！🐾✨';
           setTimeout(() => {
             animalStatusMsg.style.transform = 'scale(1)';
           }, 300);

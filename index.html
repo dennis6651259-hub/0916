@@ -3,349 +3,439 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>電機系 - 王鼎昌 | 可愛動物即時時鐘 & 技能專案展示</title>
-  <meta name="description" content="電機系王鼎昌 (7115064172) 的專屬個人頁面：包含即時跳動時鐘（時分秒）、Python 與 C 語言技能、Hello World 互動專案與可愛動物淺藍色主題。">
-  <!-- Fonts -->
+  <title>SYS_01 // 王鼎昌 // ACTIVE</title>
+  <meta name="description" content="王鼎昌 電機工程 個人系統終端機">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Quicksand:wght@500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ======== RESET ======== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ======== ROOT ======== */
+    :root {
+      --cyan:   #00f5ff;
+      --cyan2:  #00bcd4;
+      --yellow: #f5c518;
+      --red:    #ff2d55;
+      --green:  #39ff14;
+      --bg:     #050a0f;
+      --panel:  rgba(0, 20, 30, 0.85);
+      --border: #00f5ff;
+      --text:   #c8f4ff;
+      --mono:   'Share Tech Mono', 'Courier New', monospace;
+      --orb:    'Orbitron', monospace;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ======== SCANLINES overlay ======== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,245,255,0.025) 3px,
+        rgba(0,245,255,0.025) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ======== GRID BACKGROUND ======== */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ======== MAIN TERMINAL WINDOW ======== */
+    .terminal {
+      position: relative;
+      z-index: 10;
+      width: min(620px, 96vw);
+      background: var(--panel);
+      border: 2px solid var(--cyan);
+      box-shadow:
+        0 0 0 1px rgba(0,245,255,0.15),
+        0 0 30px rgba(0,245,255,0.25),
+        inset 0 0 60px rgba(0,245,255,0.04);
+      padding: 0;
+      animation: flicker 8s step-end infinite;
+    }
+
+    @keyframes flicker {
+      0%,96%,98%,100% { opacity: 1; }
+      97%             { opacity: 0.85; }
+      99%             { opacity: 0.92; }
+    }
+
+    /* ---- status bar ---- */
+    .status-bar {
+      background: rgba(0,245,255,0.08);
+      border-bottom: 1px solid var(--cyan2);
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      color: var(--cyan2);
+      letter-spacing: 0.12em;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      margin-right: 6px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ---- body content ---- */
+    .terminal-body {
+      padding: 24px 28px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ---- NAME ---- */
+    .name-block {
+      text-align: center;
+    }
+
+    .name-kanji {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: clamp(2.8rem, 8vw, 4rem);
+      font-weight: 900;
+      color: var(--yellow);
+      text-shadow:
+        0 0 12px rgba(245,197,24,0.8),
+        0 0 30px rgba(245,197,24,0.4);
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+    }
+
+    .name-sub {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: var(--cyan2);
+      letter-spacing: 0.18em;
+      margin-top: 6px;
+    }
+
+    .name-sub span { color: var(--cyan); margin: 0 8px; }
+
+    /* ---- PANELS ROW ---- */
+    .panels-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .panel {
+      border: 1px solid var(--cyan2);
+      background: rgba(0,245,255,0.04);
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    /* dashed red bottom accent */
+    .panel::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--red) 0px, var(--red) 6px,
+        transparent 6px, transparent 10px
+      );
+    }
+
+    .panel-label {
+      font-size: 0.68rem;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      margin-bottom: 10px;
+    }
+
+    .panel-label::before { content: '>> '; }
+
+    /* SYSTEM_ID panel */
+    .sys-nid {
+      font-size: 0.82rem;
+      color: var(--cyan2);
+      margin-bottom: 4px;
+    }
+
+    .sys-nid strong {
+      color: var(--yellow);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+    }
+
+    .sys-status {
+      font-size: 0.82rem;
+      color: var(--cyan2);
+    }
+
+    .sys-status strong {
+      color: var(--green);
+      font-size: 0.9rem;
+      text-shadow: 0 0 8px var(--green);
+      letter-spacing: 0.1em;
+    }
+
+    /* SKILL TREE panel */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .skill-tag {
+      border: 1px solid var(--yellow);
+      color: var(--yellow);
+      background: rgba(245,197,24,0.08);
+      padding: 3px 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 6px rgba(245,197,24,0.6);
+      box-shadow: 0 0 6px rgba(245,197,24,0.1);
+      cursor: default;
+      transition: background 0.2s;
+    }
+
+    .skill-tag:hover {
+      background: rgba(245,197,24,0.22);
+    }
+
+    /* ---- DATABANK ---- */
+    .databank {
+      border: 1px solid var(--cyan2);
+      background: rgba(0,245,255,0.03);
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    .databank::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--red) 0px, var(--red) 6px,
+        transparent 6px, transparent 10px
+      );
+    }
+
+    .databank-label {
+      font-size: 0.68rem;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .databank-label::before { content: '>> '; }
+
+    .project-entry {
+      font-size: 0.88rem;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    .project-entry::before { content: '>> '; color: var(--cyan2); }
+
+    /* ---- CLOCK PANEL ---- */
+    .clock-panel {
+      border: 2px solid var(--red);
+      background: rgba(255,45,85,0.05);
+      padding: 16px 20px 12px;
+      text-align: center;
+      box-shadow: inset 0 0 24px rgba(255,45,85,0.06);
+    }
+
+    .clock-time {
+      font-family: var(--orb);
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 700;
+      color: var(--cyan);
+      text-shadow:
+        0 0 16px rgba(0,245,255,0.9),
+        0 0 40px rgba(0,245,255,0.4);
+      letter-spacing: 0.06em;
+    }
+
+    .clock-date {
+      font-size: 0.8rem;
+      color: var(--cyan2);
+      margin-top: 5px;
+      letter-spacing: 0.12em;
+    }
+
+    /* ---- ACCESS BUTTON ---- */
+    .access-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--yellow);
+      border: none;
+      color: #000;
+      font-family: var(--orb);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 0 18px rgba(245,197,24,0.5);
+      text-transform: uppercase;
+    }
+
+    .access-btn:hover {
+      background: #fff700;
+      box-shadow: 0 0 32px rgba(245,197,24,0.9);
+      letter-spacing: 0.22em;
+    }
+
+    .access-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* corner decorations */
+    .corner {
+      position: absolute;
+      width: 14px; height: 14px;
+      border-color: var(--cyan);
+      border-style: solid;
+    }
+    .corner.tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+    .corner.tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
+    .corner.bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
+    .corner.br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
+  </style>
 </head>
 <body>
 
-  <!-- Background Floating Clouds -->
-  <div class="floating-cloud cloud-1"></div>
-  <div class="floating-cloud cloud-2"></div>
-  <div class="floating-cloud cloud-3"></div>
+  <div class="terminal">
+    <!-- corner decorations -->
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
 
-  <div class="container">
-    <!-- 頂部導覽列 (Navbar) -->
-    <header class="cute-navbar">
-      <div class="nav-wrapper">
-        <a href="#clock-section" class="nav-brand">
-          <span class="brand-paw">🐾</span>
-          <span class="brand-title">電機系 · 王鼎昌</span>
-          <span class="student-pill">7115064172</span>
-        </a>
+    <!-- status bar -->
+    <div class="status-bar">
+      <span><span class="status-dot"></span>SYS_01_ACTIVE</span>
+      <span id="sys-time-small">--:--:--</span>
+    </div>
 
-        <nav>
-          <ul class="nav-links">
-            <li><a href="#clock-section" class="nav-link active">即時時鐘</a></li>
-            <li><a href="#about-section" class="nav-link">自我介紹</a></li>
-            <li><a href="#skills-section" class="nav-link">Skill 技能</a></li>
-            <li><a href="#project-section" class="nav-link">Hello World</a></li>
-          </ul>
-        </nav>
+    <!-- body -->
+    <div class="terminal-body">
+
+      <!-- NAME -->
+      <div class="name-block">
+        <div class="name-kanji">王鼎昌</div>
+        <div class="name-sub">電機工程學系<span>//</span>學生</div>
       </div>
-    </header>
 
-    <!-- 主區塊 1：即時時鐘 (時、分、秒) + 可愛動物伴侶 -->
-    <section class="section clock-section" id="clock-section">
-      <div class="clock-card-wrapper">
-        <!-- 探頭可愛動物 (貓咪、柴犬、兔子) -->
-        <div class="animal-peeker-row">
-          <!-- 1. 貓咪 -->
-          <div class="peeker-animal" data-animal="cat" title="點我摸摸小貓咪 🐱">
-            <svg class="cat-peeker" viewBox="0 0 100 90">
-              <polygon points="20,40 32,8 45,35" fill="#fed7aa" stroke="#fb923c" stroke-width="3" stroke-linejoin="round"/>
-              <polygon points="25,35 32,15 40,32" fill="#f472b6" opacity="0.6"/>
-              <polygon points="80,40 68,8 55,35" fill="#fed7aa" stroke="#fb923c" stroke-width="3" stroke-linejoin="round"/>
-              <polygon points="75,35 68,15 60,32" fill="#f472b6" opacity="0.6"/>
-              <ellipse cx="50" cy="55" rx="38" ry="30" fill="#ffedd5" stroke="#fb923c" stroke-width="3.5"/>
-              <circle cx="32" cy="62" r="5" fill="#f472b6" opacity="0.45"/>
-              <circle cx="68" cy="62" r="5" fill="#f472b6" opacity="0.45"/>
-              <ellipse cx="38" cy="52" rx="4.5" ry="6" fill="#1e293b"/>
-              <circle cx="40" cy="50" r="2" fill="#ffffff"/>
-              <ellipse cx="62" cy="52" rx="4.5" ry="6" fill="#1e293b"/>
-              <circle cx="64" cy="50" r="2" fill="#ffffff"/>
-              <polygon points="48,58 52,58 50,61" fill="#f472b6"/>
-              <path d="M 46 63 Q 50 67 54 63" stroke="#1e293b" stroke-width="2" fill="none"/>
-              <line x1="20" y1="56" x2="30" y2="58" stroke="#cbd5e1" stroke-width="2"/>
-              <line x1="20" y1="62" x2="30" y2="62" stroke="#cbd5e1" stroke-width="2"/>
-              <line x1="80" y1="56" x2="70" y2="58" stroke="#cbd5e1" stroke-width="2"/>
-              <line x1="80" y1="62" x2="70" y2="62" stroke="#cbd5e1" stroke-width="2"/>
-              <ellipse cx="36" cy="84" rx="9" ry="6" fill="#ffffff" stroke="#fb923c" stroke-width="2.5"/>
-              <ellipse cx="64" cy="84" rx="9" ry="6" fill="#ffffff" stroke="#fb923c" stroke-width="2.5"/>
-            </svg>
-          </div>
-
-          <!-- 2. 柴犬 -->
-          <div class="peeker-animal" data-animal="shiba" title="點我摸摸小柴犬 🐕">
-            <svg class="shiba-peeker" viewBox="0 0 100 90">
-              <polygon points="18,36 30,6 44,30" fill="#d97706" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/>
-              <polygon points="82,36 70,6 56,30" fill="#d97706" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/>
-              <ellipse cx="50" cy="54" rx="38" ry="32" fill="#f59e0b" stroke="#b45309" stroke-width="3.5"/>
-              <ellipse cx="50" cy="62" rx="24" ry="18" fill="#ffffff"/>
-              <circle cx="28" cy="60" r="5" fill="#fb7185" opacity="0.4"/>
-              <circle cx="72" cy="60" r="5" fill="#fb7185" opacity="0.4"/>
-              <circle cx="36" cy="44" r="3" fill="#ffffff"/>
-              <circle cx="64" cy="44" r="3" fill="#ffffff"/>
-              <ellipse cx="36" cy="50" rx="4" ry="5" fill="#1e293b"/>
-              <circle cx="37" cy="48" r="1.5" fill="#ffffff"/>
-              <ellipse cx="64" cy="50" rx="4" ry="5" fill="#1e293b"/>
-              <circle cx="65" cy="48" r="1.5" fill="#ffffff"/>
-              <ellipse cx="50" cy="59" rx="5" ry="4" fill="#0f172a"/>
-              <path d="M 46 64 Q 50 67 54 64" stroke="#0f172a" stroke-width="2" fill="none"/>
-              <ellipse cx="50" cy="68" rx="4" ry="5" fill="#f43f5e"/>
-              <ellipse cx="34" cy="85" rx="9" ry="6" fill="#ffffff" stroke="#b45309" stroke-width="2.5"/>
-              <ellipse cx="66" cy="85" rx="9" ry="6" fill="#ffffff" stroke="#b45309" stroke-width="2.5"/>
-            </svg>
-          </div>
-
-          <!-- 3. 兔子 -->
-          <div class="peeker-animal" data-animal="bunny" title="點我摸摸小兔子 🐰">
-            <svg class="bunny-peeker" viewBox="0 0 100 90">
-              <ellipse cx="34" cy="22" rx="8" ry="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
-              <ellipse cx="34" cy="22" rx="4" ry="15" fill="#fbcfe8"/>
-              <ellipse cx="66" cy="22" rx="8" ry="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
-              <ellipse cx="66" cy="22" rx="4" ry="15" fill="#fbcfe8"/>
-              <ellipse cx="50" cy="58" rx="34" ry="28" fill="#ffffff" stroke="#cbd5e1" stroke-width="3.5"/>
-              <circle cx="30" cy="62" r="6" fill="#f472b6" opacity="0.4"/>
-              <circle cx="70" cy="62" r="6" fill="#f472b6" opacity="0.4"/>
-              <ellipse cx="38" cy="54" rx="4" ry="5" fill="#0f172a"/>
-              <circle cx="40" cy="52" r="1.5" fill="#ffffff"/>
-              <ellipse cx="62" cy="54" rx="4" ry="5" fill="#0f172a"/>
-              <circle cx="64" cy="52" r="1.5" fill="#ffffff"/>
-              <polygon points="48,60 52,60 50,63" fill="#f472b6"/>
-              <path d="M 47 65 Q 50 68 53 65" stroke="#0f172a" stroke-width="2" fill="none"/>
-              <ellipse cx="35" cy="84" rx="8" ry="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5"/>
-              <ellipse cx="65" cy="84" rx="8" ry="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5"/>
-            </svg>
-          </div>
+      <!-- INFO ROW -->
+      <div class="panels-row">
+        <!-- System ID -->
+        <div class="panel">
+          <div class="panel-label">SYSTEM_ID</div>
+          <div class="sys-nid">NID: <strong>7115064172</strong></div>
+          <div class="sys-status">STATUS: <strong>ACTIVE</strong></div>
         </div>
 
-        <!-- 時鐘主體面板 -->
-        <div class="clock-board">
-          <div class="clock-date-row">
-            <div class="date-pill">
-              <i data-lucide="calendar" style="width: 17px; height: 17px;"></i>
-              <span id="clock-date-str">2026 年 9 月 16 日</span>
-            </div>
-            <div class="weekday-pill" id="clock-weekday">星期三</div>
-            <button class="format-toggle-btn" id="toggle-format-btn">切換 12 小時制</button>
-          </div>
-
-          <!-- 時、分、秒 數字卡片 -->
-          <div class="clock-digits-wrapper">
-            <!-- 時 -->
-            <div class="digit-card">
-              <span class="digit-num" id="clock-hours">11</span>
-              <span class="digit-lbl">時 HOURS</span>
-            </div>
-
-            <div class="digit-colon">:</div>
-
-            <!-- 分 -->
-            <div class="digit-card">
-              <span class="digit-num" id="clock-minutes">10</span>
-              <span class="digit-lbl">分 MINUTES</span>
-            </div>
-
-            <div class="digit-colon">:</div>
-
-            <!-- 秒 -->
-            <div class="digit-card digit-card-seconds">
-              <span class="digit-num" id="clock-seconds">40</span>
-              <span class="digit-lbl">秒 SECONDS</span>
-            </div>
-
-            <span class="ampm-pill" id="clock-ampm" style="display: none;">AM</span>
-          </div>
-
-          <!-- 秒數進度流動條 -->
-          <div class="seconds-bar-wrapper">
-            <div class="seconds-bar-fill" id="seconds-bar-fill"></div>
-          </div>
-
-          <!-- 動態動物問候氣泡 -->
-          <div class="animal-status-bubble" id="animal-status-bubble">
-            <span id="animal-status-msg">☀️ 早安！小貓咪正在曬太陽，王鼎昌正在編寫 C 與 Python！🐾</span>
+        <!-- Skill Tree -->
+        <div class="panel">
+          <div class="panel-label">SKILL_TREE</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Web Dev</span>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- 主區塊 2：自我介紹 (電機系 - 王鼎昌) -->
-    <section class="section" id="about-section">
-      <div class="section-head">
-        <div class="cute-badge">⚡ ELECTRICAL ENGINEERING</div>
-        <h2 class="section-title">自我介紹 · 電機工程學系</h2>
+      <!-- Databank -->
+      <div class="databank">
+        <div class="databank-label">DATABANK: UNIV_PROJECTS</div>
+        <div class="project-entry">MEC</div>
       </div>
 
-      <div class="about-card">
-        <div class="about-avatar-box">
-          <div class="avatar-circle">
-            <img src="assets/images/profile.jpg" alt="王鼎昌 個人形象照">
-          </div>
-          <span class="avatar-role-pill">電機系工程師 ⚡</span>
-        </div>
-
-        <div class="about-info">
-          <h3 class="about-name-row">
-            <span>電機系 - 王鼎昌</span>
-            <span class="student-tag">學號：7115064172</span>
-          </h3>
-          <div class="about-dept">Dennis Wang · 專注軟硬體整合、微控制器與演算法</div>
-          <p class="about-p">
-            嗨！我是<strong>電機工程學系</strong>的<strong>王鼎昌</strong>。熱衷於將底層硬體架構與高階程式運算完美結合。擅長運用 <strong>C 語言</strong>深入微處理器硬體控制與暫存器通訊，並透過 <strong>Python</strong> 快速建立資料處理腳本與演算法模型。注重代碼簡潔、邏輯嚴謹與極致運行效率！
-          </p>
-
-          <div class="traits-row">
-            <div class="trait-chip">⚡ 電路分析與硬體運算</div>
-            <div class="trait-chip">💻 C 語言指標與底層通訊</div>
-            <div class="trait-chip">🐍 Python 演算法與自動化</div>
-            <div class="trait-chip">🐾 可愛動物愛好者</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 主區塊 3：Skill 技能 (Python & C) -->
-    <section class="section" id="skills-section">
-      <div class="section-head">
-        <div class="cute-badge">💡 CORE SKILLS</div>
-        <h2 class="section-title">專業技能 · Python & C</h2>
+      <!-- Clock -->
+      <div class="clock-panel">
+        <div class="clock-time" id="clock-time">00:00:00</div>
+        <div class="clock-date" id="clock-date">載入中...</div>
       </div>
 
-      <div class="skills-grid">
-        <!-- C 語言卡片 -->
-        <div class="cute-skill-card">
-          <div class="skill-header-row">
-            <div class="skill-title-group">
-              <div class="skill-icon-badge" style="background: #e0f2fe; color: #0284c7;">
-                ⚙️
-              </div>
-              <div>
-                <div class="skill-name">C 語言 (C Programming)</div>
-                <div class="skill-tagline">硬體控制 · 記憶體管理 · 嵌入式系統</div>
-              </div>
-            </div>
-            <div class="animal-companion-badge" title="小貓咪除錯員">🐱</div>
-          </div>
+      <!-- Button -->
+      <button class="access-btn" onclick="accessDatabank()">ACCESS DATABANK</button>
 
-          <p class="skill-desc">
-            電機系最強實力底層基石。熟練掌握記憶體指標（Pointers）、結構體與暫存器操作，打造高響應度硬體驅動程式。
-          </p>
-
-          <ul class="skill-highlights">
-            <li><span class="dot">✦</span> <strong>記憶體管理：</strong>指標位址運算、動態配置與結構體架構</li>
-            <li><span class="dot">✦</span> <strong>嵌入式微控制器：</strong>單晶片暫存器、GPIO、UART 序列埠通訊</li>
-            <li><span class="dot">✦</span> <strong>演算法實作：</strong>佇列、堆疊、二元搜尋樹與高效排序</li>
-          </ul>
-        </div>
-
-        <!-- Python 卡片 -->
-        <div class="cute-skill-card">
-          <div class="skill-header-row">
-            <div class="skill-title-group">
-              <div class="skill-icon-badge" style="background: #fef3c7; color: #d97706;">
-                🐍
-              </div>
-              <div>
-                <div class="skill-name">Python 程式語言</div>
-                <div class="skill-tagline">快速開發 · 自動化腳本 · 數據分析</div>
-              </div>
-            </div>
-            <div class="animal-companion-badge" title="小柴犬程式助手">🐕</div>
-          </div>
-
-          <p class="skill-desc">
-            高效率現代化工程利器。用於演算法原型快速驗證、硬體數據記錄解析與批次自動化運算。
-          </p>
-
-          <ul class="skill-highlights">
-            <li><span class="dot">✦</span> <strong>工程計算：</strong>NumPy、SciPy 矩陣運算與訊號頻譜處理</li>
-            <li><span class="dot">✦</span> <strong>自動化腳本：</strong>批次檔案處理、串列通訊監聽與資料日誌記錄</li>
-            <li><span class="dot">✦</span> <strong>物件導向設計：</strong>簡潔易讀的 Clean Code 架構與模組化開發</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 主區塊 4：Project 作品專案 (Hello World 互動終端) -->
-    <section class="section" id="project-section">
-      <div class="section-head">
-        <div class="cute-badge">🚀 PROJECT SHOWCASE</div>
-        <h2 class="section-title">作品專案 · Hello World</h2>
-      </div>
-
-      <div class="project-card">
-        <div class="project-intro-row">
-          <div>
-            <div class="project-title">Hello World · 一切程式設計的起點</div>
-            <div class="project-subtitle">萬物始於第一行代碼。支援 C 語言與 Python 雙語法即時切換與互動編譯執行！</div>
-          </div>
-          <span class="project-badge-tag">互動模擬環境 · 點擊執行</span>
-        </div>
-
-        <!-- 互動模擬終端機 -->
-        <div class="terminal-box">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <div class="term-dot red"></div>
-              <div class="term-dot yellow"></div>
-              <div class="term-dot green"></div>
-            </div>
-            <div class="terminal-tabs">
-              <button class="code-tab-btn active" id="tab-c">hello.c (C 語言)</button>
-              <button class="code-tab-btn" id="tab-py">hello.py (Python)</button>
-            </div>
-          </div>
-
-          <!-- 代碼顯示區 -->
-          <div class="code-editor-area" id="code-display">
-            <pre><code><span class="code-cmt">// C 語言 - 電機系 王鼎昌 (7115064172)</span>
-<span class="code-kw">#include</span> <span class="code-str">&lt;stdio.h&gt;</span>
-
-<span class="code-kw">int</span> <span class="code-fn">main</span>() {
-    <span class="code-fn">printf</span>(<span class="code-str">"Hello, World! 🚀\n"</span>);
-    <span class="code-fn">printf</span>(<span class="code-str">"電機工程學系 · 王鼎昌 (7115064172) 向世界問好！🐾\n"</span>);
-    <span class="code-kw">return</span> <span class="code-fn">0</span>;
-}</code></pre>
-          </div>
-
-          <!-- 操作列 -->
-          <div class="terminal-actions-bar">
-            <span style="font-size: 0.85rem; color: #94a3b8;">環境：GCC 14.2 / Python 3.14 · 電機系運算節點</span>
-            <button class="run-btn" id="run-code-btn">
-              <span>▶ 執行程式 (Run Code)</span>
-            </button>
-          </div>
-
-          <!-- 輸出面板 -->
-          <div class="terminal-output" id="terminal-output">
-            <div class="output-line" style="color: #64748b;">// 點擊上方綠色按鈕執行 hello.c ...</div>
-          </div>
-        </div>
-
-        <!-- 可愛動物喝采互動區 -->
-        <div class="pets-gallery">
-          <button class="pet-btn" data-animal="cat">🐱 摸摸小貓咪</button>
-          <button class="pet-btn" data-animal="shiba">🐕 摸摸小柴犬</button>
-          <button class="pet-btn" data-animal="bunny">🐰 摸摸小兔子</button>
-          <button class="pet-btn" data-animal="panda">🐼 摸摸大熊貓</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 頁尾 -->
-    <footer class="cute-footer">
-      <div class="footer-paw-banner">🐾 🐱 🐕 🐰 🐼 🐾</div>
-      <p class="footer-copy">© 2026 電機系 - 王鼎昌 (7115064172). 版權所有</p>
-      <p class="footer-sub">淺藍色主題 · 可愛動物互動 · 即時時鐘 · Python & C · Hello World</p>
-    </footer>
+    </div>
   </div>
 
-  <!-- Lucide Icon Init -->
   <script>
-    if (window.lucide) {
-      window.lucide.createIcons();
+    const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateClock() {
+      const now = new Date();
+      const h = pad(now.getHours());
+      const m = pad(now.getMinutes());
+      const s = pad(now.getSeconds());
+      const timeStr = `${h}:${m}:${s}`;
+      const dateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${weekdays[now.getDay()]}`;
+
+      document.getElementById('clock-time').textContent = timeStr;
+      document.getElementById('clock-date').textContent = dateStr;
+      document.getElementById('sys-time-small').textContent = timeStr;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    function accessDatabank() {
+      const btn = document.querySelector('.access-btn');
+      btn.textContent = '>> ACCESSING... MEC <<';
+      btn.style.background = '#00f5ff';
+      btn.style.color = '#000';
+      setTimeout(() => {
+        btn.textContent = '>> MEC // LOADED ✓';
+        btn.style.background = '#39ff14';
+      }, 800);
+      setTimeout(() => {
+        btn.textContent = 'ACCESS DATABANK';
+        btn.style.background = '#f5c518';
+        btn.style.color = '#000';
+      }, 2500);
     }
   </script>
-  <!-- Main Script -->
-  <script src="js/main.js"></script>
 </body>
 </html>
