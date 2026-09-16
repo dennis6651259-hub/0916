@@ -1,6 +1,6 @@
 /**
  * Personal Portfolio & Resume Website
- * Script for Alex Chen (陳子揚)
+ * 7115064172 - 王鼎昌
  */
 
 document.addEventListener('DOMContentLoaded', () => {
